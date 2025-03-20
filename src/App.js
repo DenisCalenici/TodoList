@@ -15,6 +15,7 @@ function App() {
 			id: Math.random(),
 			value: todo,
 			status: false,
+			active: false,
 		}
 		let newTask = [taskTodo, ...tasks]
 		setTasks(newTask)
@@ -52,7 +53,7 @@ function App() {
 			id={e.id}
 			value={e.value}
 			status={e.status}
-			key={e.key}
+			key={e.id}
 			deleteTodo={deleteTodo}
 			toggleTodo={toggleTodo}
 		/>
