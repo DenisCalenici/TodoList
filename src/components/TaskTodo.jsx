@@ -24,6 +24,13 @@ const TaskTodo = (props) => {
 						alt="icons"
 					/>
 				</button>
+				<button
+					onClick={() => {
+						props.importantTodo(props.value)
+					}}
+				>
+					IT
+				</button>
 			</div>
 		</div>
 	)
