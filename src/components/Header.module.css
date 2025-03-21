@@ -1,7 +1,7 @@
 .TaskTodo {
 	margin-left: 195px;
 	display: grid;
-	grid-template-columns: 150px auto 40%;
+	grid-template-columns: auto 150px 40%;
 }
 .h1 {
 	margin-left: auto;
@@ -13,6 +13,7 @@
 .input[type='checkbox'] {
 	transform: scale(2);
 	margin-right: 10px;
+	overflow-wrap: break-word;
 }
 .p {
 	text-decoration: underline;

@@ -1,6 +1,8 @@
 import iconsDelete from '..//IMG/icons8-delete.svg'
 import s from './/Header.module.css'
 const TaskTodo = (props) => {
+	console.log(props)
+
 	return (
 		<div className={s.TaskTodo} id={props.id}>
 			<div>
@@ -26,7 +28,7 @@ const TaskTodo = (props) => {
 				</button>
 				<button
 					onClick={() => {
-						props.importantTodo(props.value)
+						props.importantTodo(props.id)
 					}}
 				>
 					IT

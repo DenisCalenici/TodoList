@@ -17,6 +17,7 @@ function App() {
 			value: todo,
 			status: false,
 			active: false,
+			importantId: false,
 		}
 		if (todo === '') {
 			return false
@@ -37,10 +38,19 @@ function App() {
 		)
 		setTasks(toggle)
 	}
-	const importantTodo = (value) => {
-		let important = tasks.map((e) =>
-			e.value === value ? { ...e, value: '!' + e.value } : { ...e }
-		)
+	const importantTodo = (id) => {
+		let important = tasks.map((e) => {
+			if (e.id === id) {
+				const newImportantId = !e.importantId
+				return {
+					...e,
+					importantId: newImportantId,
+					value: newImportantId ? `!${e.value}` : e.value,
+				}
+			} else {
+				return e
+			}
+		})
 		setTasks(important)
 	}
 
@@ -55,7 +65,7 @@ function App() {
 			copeTasks = tasks.filter((e) => e.status === true)
 			break
 		case 'Important':
-			copeTasks = tasks.filter((e) => e.value.startsWith('!'))
+			copeTasks = tasks.filter((e) => e.importantId === true)
 			break
 
 		default:
@@ -69,6 +79,7 @@ function App() {
 			status={e.status}
 			active={e.active}
 			key={e.id}
+			importantId={e.importantId}
 			deleteTodo={deleteTodo}
 			toggleTodo={toggleTodo}
 			importantTodo={importantTodo}
@@ -82,7 +93,7 @@ function App() {
 				<button onClick={() => setDone('ALL')}>ALL</button>
 				<button onClick={() => setDone('Active')}>Active</button>
 				<button onClick={() => setDone('Completes')}>Completes</button>
-				<button onClick={() => setDone(' Important')}>Important</button>
+				<button onClick={() => setDone('Important')}>Important</button>
 			</div>
 			<InputTodo addTask={addTask} todo={todo} setTodo={setTodo} />
 			{taskTodoList}
