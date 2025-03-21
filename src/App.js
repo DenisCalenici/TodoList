@@ -14,12 +14,12 @@ function App() {
 	const addTask = () => {
 		const taskTodo = {
 			id: Math.random(),
-			value: todo,
+			value: todo.trim(),
 			status: false,
 			active: false,
 			importantId: false,
 		}
-		if (todo === '') {
+		if (todo.trim() === '') {
 			return false
 		}
 		let newTask = [taskTodo, ...tasks]
