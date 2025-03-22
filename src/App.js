@@ -6,16 +6,43 @@ import TaskTodo from './components/TaskTodo'
 
 function App() {
 	const [todo, setTodo] = useState('')
-	const [tasks, setTasks] = useState([])
+	const [tasks, setTasks] = useState([
+		{
+			id: 2343453,
+			value: 'kjfhgkjfdhgjkdfhgkdhf',
+			completed: false,
+			active: false,
+			importantId: false,
+		},
+		{
+			id: 233,
+			value: 'kjf',
+			completed: false,
+			active: false,
+			importantId: false,
+		},
+		{
+			id: 4576,
+			value: 'fcghgdzfvfd',
+			completed: false,
+			active: false,
+			importantId: false,
+		},
+		{
+			id: 54657686,
+			value: 'kjfhgkjfgkdhf',
+			completed: true,
+			active: false,
+			importantId: false,
+		},
+	])
 	const [done, setDone] = useState('')
-
-	let copeTasks = tasks
 
 	const addTask = () => {
 		const taskTodo = {
 			id: Math.random(),
-			value: todo.trim(),
-			status: false,
+			value: todo,
+			completed: false,
 			active: false,
 			importantId: false,
 		}
@@ -34,7 +61,7 @@ function App() {
 
 	const toggleTodo = (id) => {
 		let toggle = tasks.map((e) =>
-			e.id === id ? { ...e, status: !e.status } : { ...e }
+			e.id === id ? { ...e, completed: !e.completed } : { ...e }
 		)
 		setTasks(toggle)
 	}
@@ -45,7 +72,6 @@ function App() {
 				return {
 					...e,
 					importantId: newImportantId,
-					value: newImportantId ? `!${e.value}` : e.value,
 				}
 			} else {
 				return e
@@ -54,37 +80,39 @@ function App() {
 		setTasks(important)
 	}
 
-	switch (done) {
-		case 'ALL':
-			copeTasks = tasks
-			break
-		case 'Active':
-			copeTasks = tasks.filter((e) => e.status === false)
-			break
-		case 'Completes':
-			copeTasks = tasks.filter((e) => e.status === true)
-			break
-		case 'Important':
-			copeTasks = tasks.filter((e) => e.importantId === true)
-			break
+	const switchTasks = (tasks) => {
+		switch (done) {
+			case 'ALL':
+				return tasks
 
-		default:
-			break
+			case 'Active':
+				return tasks.filter((e) => e.completed === false)
+
+			case 'Completed':
+				return tasks.filter((e) => e.completed === true)
+
+			case 'Important':
+				return tasks.filter((e) => e.importantId === true)
+
+			default:
+				return tasks
+		}
 	}
 
-	const taskTodoList = copeTasks.map((e) => (
+	const taskTodoList = switchTasks(tasks).map((e) => (
 		<TaskTodo
 			id={e.id}
 			value={e.value}
-			status={e.status}
-			active={e.active}
+			completed={e.completed}
 			key={e.id}
+			active={e.active}
 			importantId={e.importantId}
 			deleteTodo={deleteTodo}
 			toggleTodo={toggleTodo}
 			importantTodo={importantTodo}
 		/>
 	))
+
 	return (
 		<div>
 			<Header />
@@ -92,7 +120,7 @@ function App() {
 			<div>
 				<button onClick={() => setDone('ALL')}>ALL</button>
 				<button onClick={() => setDone('Active')}>Active</button>
-				<button onClick={() => setDone('Completes')}>Completes</button>
+				<button onClick={() => setDone('Completed')}>Completed</button>
 				<button onClick={() => setDone('Important')}>Important</button>
 			</div>
 			<InputTodo addTask={addTask} todo={todo} setTodo={setTodo} />
